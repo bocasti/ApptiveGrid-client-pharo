@@ -17,6 +17,11 @@ ApptiveRemoteMethodInvocation >> arguments: aCollection [
 ]
 
 { #category : #accessing }
+ApptiveRemoteMethodInvocation >> client [
+	^ client 
+]
+
+{ #category : #accessing }
 ApptiveRemoteMethodInvocation >> client: anObject [
 
 	client := anObject
@@ -30,7 +35,7 @@ ApptiveRemoteMethodInvocation >> execute [
 		client httpClient accept:
 			(ZnMimeType fromString: objectClass acceptHeader) ].
 	httpClient := method prepareHttpClient: client.
-	(arguments notNil and: [ arguments notEmpty ]) ifTrue: [ 
+	(arguments notNil ) ifTrue: [ 
 		httpClient entity:
 			(ZnStringEntity json: (NeoJSONWriter toString: arguments)) ].
 	self query keysAndValuesDo: [ :optionKey :optionValue |
